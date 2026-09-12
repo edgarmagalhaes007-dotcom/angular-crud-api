@@ -1,25 +1,40 @@
 <app-cabecalho></app-cabecalho>
 
 <div class="container py-4">
-  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-    <div>
-      <h1 class="h3 mb-1">Gerenciamento de Produtos</h1>
-      <p class="text-muted mb-0">Gerencie os produtos da loja.</p>
+  <section class="store-hero mb-4" aria-labelledby="titulo-produtos">
+    <div class="store-hero-content">
+      <span class="hero-tag">E-commerce gamer</span>
+      <h1 id="titulo-produtos">Gerenciamento de Produtos</h1>
+      <p>Cadastre, edite e organize eletrônicos, jogos e acessórios da Tech Store Gamer.</p>
+
+      <div class="hero-badges" aria-label="Tecnologias do projeto">
+        <span>Angular</span>
+        <span>API Local</span>
+        <span>CRUD</span>
+      </div>
     </div>
-    <a routerLink="/produtos/novo" class="btn btn-primary">
+
+    <div class="hero-panel" aria-hidden="true">
+      <img src="/imagens/logo.png" alt="" class="hero-logo" />
+      <span>Produtos conectados à API</span>
+    </div>
+
+    <a routerLink="/produtos/novo" class="btn btn-hero">
       + Novo Produto
     </a>
-  </div>
+  </section>
 
   <app-carregamento *ngIf="carregando"></app-carregamento>
   <app-mensagem *ngIf="mensagemErro" [mensagem]="mensagemErro" tipo="erro"></app-mensagem>
   <app-mensagem *ngIf="mensagemSucesso" [mensagem]="mensagemSucesso" tipo="sucesso"></app-mensagem>
 
+  <button *ngIf="mensagemErro && !carregando" class="btn btn-outline-primary mb-3" (click)="carregarProdutos()">Tentar novamente</button>
+
   <!-- Lista de Produtos -->
   <div *ngIf="!carregando && produtos.length > 0" class="row g-4">
     <div class="col-sm-6 col-lg-4" *ngFor="let produto of produtos">
       <article class="card h-100 shadow-sm border-0">
-        <img [src]="produto.imagem || 'https://via.placeholder.com/600x400?text=Sem+Imagem'" [alt]="produto.nome" class="card-img-top produto-imagem" />
+        <img [src]="produto.imagem || 'sem-imagem.svg'" [alt]="produto.nome" (error)="imagemAlternativa($event)" loading="lazy" class="card-img-top produto-imagem" />
         <div class="card-body d-flex flex-column">
           <span class="text-uppercase small text-secondary">{{ produto.categoria }}</span>
           <h2 class="h5 mt-2">{{ produto.nome }}</h2>
@@ -28,13 +43,13 @@
         </div>
         <div class="card-footer bg-white border-0 pt-0 d-flex gap-2">
           <a [routerLink]="['/produtos/editar', produto.id]" class="btn btn-sm btn-outline-primary flex-grow-1">Editar</a>
-          <button class="btn btn-sm btn-outline-danger flex-grow-1" (click)="excluir(produto.id!)">Excluir</button>
+          <button class="btn btn-sm btn-outline-danger flex-grow-1" (click)="excluir(produto.id)" [disabled]="carregando" [attr.aria-label]="'Excluir ' + produto.nome">Excluir</button>
         </div>
       </article>
     </div>
   </div>
 
-  <div *ngIf="!carregando && produtos.length === 0" class="alert alert-info">
+  <div *ngIf="!carregando && !mensagemErro && produtos.length === 0" class="alert alert-info">
     Nenhum produto cadastrado no momento.
   </div>
 </div>

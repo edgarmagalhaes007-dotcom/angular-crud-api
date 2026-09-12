@@ -6,3 +6,6 @@ export interface Produto {
   preco: number;
   imagem: string;
 }
+
+// O identificador é atribuído pela API, nunca pelo formulário.
+export type ProdutoEntrada = Omit<Produto, 'id'>;

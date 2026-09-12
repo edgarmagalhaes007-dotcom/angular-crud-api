@@ -36,3 +36,9 @@ Thumbs.db
 !backend/package.json
 !backend/package-lock.json
 !backend/data/produtos.json
+# Dependências e saídas em qualquer nível
+node_modules/
+.angular/
+dist/
+coverage/
+*.log

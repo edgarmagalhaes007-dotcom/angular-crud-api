@@ -1,50 +1,50 @@
 [
   {
     "id": 1,
-    "nome": "Notebook Gamer",
-    "descricao": "Notebook para jogos e produtividade com excelente desempenho.",
-    "categoria": "Eletrônicos",
-    "preco": 5299.9,
-    "imagem": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80"
+    "nome": "PlayStation 5 Ps5 Slim Disk 1tb",
+    "descricao": "O PS5 Pro foi desenvolvido para oferecer uma experiência gráfica superior, com melhorias de processamento, qualidade de imagem e desempenho em jogos compatíveis. Maior desempenho gráfico: permite aproveitar jogos compatíveis com gráficos mais detalhados e taxas de quadros mais altas.",
+    "categoria": "CONSOLE",
+    "preco": 5499.99,
+    "imagem": "https://i.ibb.co/k2vH0chM/PS5.png"
   },
   {
     "id": 2,
-    "nome": "PlayStation 5",
-    "descricao": "Console de videogame de última geração com gráficos avançados.",
-    "categoria": "Jogos",
-    "preco": 4199.9,
-    "imagem": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=600&q=80"
+    "nome": "Xbox Series X 1TB",
+    "descricao": "O Xbox Series X é o mais rápido e console mais poderoso da história. Explore novos mundos ricos com 12 teraflops de potência bruta de processamento gráfico, rastreamento de raios DirectX, um SSD personalizado e jogos em 4K. Aproveite ao máximo cada minuto de jogo com o Quick Resume, tempos de carregamento ultrarrápidos e jogabilidade de até 120 FPS, tudo com tecnologia Xbox Velocity Architecture.",
+    "categoria": "CONSOLE",
+    "preco": 4799.99,
+    "imagem": "https://i.ibb.co/xqL6pnnt/X1.png"
   },
   {
     "id": 3,
-    "nome": "Headset Gamer",
-    "descricao": "Headset com áudio imersivo e microfone para comunicação.",
-    "categoria": "Eletrônicos",
-    "preco": 389.9,
-    "imagem": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80"
+    "nome": "Nintendo Switch Oled + Super Mario Bros Wonder",
+    "descricao": "O Nintendo Switch OLED é equipado com acessórios essenciais, incluindo controle Joy-Con, cabo HDMI e adaptador de energia, prontos para proporcionar uma experiencia de jogo completa. Nintendo Switch OLED e Super Mario Bros Wonder, uma combinação que promete horas de diversão e alegria.",
+    "categoria": "CONSOLE",
+    "preco": 2199.99,
+    "imagem": "https://i.ibb.co/v63wJP3x/N1.png"
   },
   {
     "id": 4,
-    "nome": "Controle Sem Fio",
-    "descricao": "Controle compatível com consoles e dispositivos de forma prática.",
-    "categoria": "Jogos",
-    "preco": 249.9,
-    "imagem": "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=600&q=80"
+    "nome": "Kit 2 Jogos Ps5 Gran Turismo 7 + Wwe 2k24",
+    "descricao": "Descubra a emocionante combinação de velocidade e combate com este incrível pacote para PlayStation 5. Ideal para fãs de corridas e luta, inclui Gran Turismo 7 e WWE 2K24, proporcionando experiências tanto em pista quanto no ringue. Gran Turismo 7 é uma obra-prima para os amantes de automóveis, oferecendo gráficos impressionantes e jogabilidade realista que desafiará suas habilidades como piloto.",
+    "categoria": "JOGOS PS5",
+    "preco": 499.99,
+    "imagem": "https://i.ibb.co/6c6MvnnY/JP1.png"
   },
   {
     "id": 5,
-    "nome": "Teste",
-    "descricao": "Notebook para jogos e produtividade com excelente desempenho.",
-    "categoria": "Eletrônicos",
-    "preco": 5299.9,
-    "imagem": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80"
+    "nome": "Forza Horizon 6 - Xbox Series X",
+    "descricao": "Forza Horizon 6 para Xbox Series X representa a evolução da franquia de corrida em mundo aberto, trazendo uma experiência imersiva, dinâmica e visualmente avançada. O jogo mantém a essência da série, combinando liberdade total de exploração com eventos competitivos e uma atmosfera vibrante inspirada em festivais automotivos.",
+    "categoria": "JOGOS Xbox Series X",
+    "preco": 599.99,
+    "imagem": "https://i.ibb.co/Y7mkkSCD/JX1.png"
   },
   {
     "id": 6,
-    "nome": "Notebook Gamer 1788570570146",
-    "descricao": "Notebook para jogos e desenvolvimento.",
-    "categoria": "Eletrônicos",
-    "preco": 3500,
-    "imagem": "https://via.placeholder.com/600x400"
+    "nome": "Mario Kart 8 Deluxe Deluxe Edition Switch",
+    "descricao": "Acelere nesta versão definitiva do jogo Mario Kart 8 e jogue a qualquer hora, em qualquer lugar! Participe de corridas com seus amigos ou compita com eles em um modo de batalha revisado, em pistas de batalha que estão de volta, ou pistas completamente novas.",
+    "categoria": "JOGOS NITENDO SWITCH",
+    "preco": 300.99,
+    "imagem": "https://i.ibb.co/BVx1V9bc/JN1.png"
   }
 ]

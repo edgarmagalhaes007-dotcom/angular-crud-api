@@ -1,0 +1,358 @@
+{
+  "info": {
+    "name": "TechStore - CRUD de Produtos",
+    "description": "Executar na ordem, em ambiente local de teste. Cria um produto descartável, consulta, atualiza e exclui somente o ID criado pela própria execução. Não executar simultaneamente com outras alterações na lista. Coleção elaborada para a atividade; não foi fornecida pelo professor.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "produtoId",
+      "value": ""
+    },
+    {
+      "key": "totalInicial",
+      "value": "0"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Listar produtos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta é uma lista\", () => pm.expect(pm.response.json()).to.be.an(\"array\"));",
+              "pm.collectionVariables.set(\"totalInicial\", pm.response.json().length);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Cadastrar produto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/products",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Controle Gamer de Teste\",\n  \"descricao\": \"Produto descartável criado pela coleção de validação.\",\n  \"categoria\": \"Jogos\",\n  \"preco\": 249.9,\n  \"imagem\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+              "const produto = pm.response.json();",
+              "pm.test(\"ID gerado\", () => pm.expect(produto.id).to.be.a(\"number\").above(0));",
+              "pm.test(\"Nome e preço persistidos\", () => { pm.expect(produto.nome).to.eql(\"Controle Gamer de Teste\"); pm.expect(produto.preco).to.eql(249.9); });",
+              "pm.collectionVariables.set(\"produtoId\", produto.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Buscar por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products/{{produtoId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "const p = pm.response.json();",
+              "pm.test(\"Objeto do ID criado\", () => { pm.expect(p).not.to.be.an(\"array\"); pm.expect(p.id).to.eql(Number(pm.collectionVariables.get(\"produtoId\"))); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Conferir inclusão na lista",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Lista contém novo ID\", () => pm.expect(pm.response.json().some(p => p.id === Number(pm.collectionVariables.get(\"produtoId\")))).to.be.true);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Atualizar produto",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/products/{{produtoId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Controle Gamer Atualizado\",\n  \"descricao\": \"Produto descartável criado pela coleção de validação.\",\n  \"categoria\": \"Jogos\",\n  \"preco\": 199.9,\n  \"imagem\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Preço atualizado\", () => pm.expect(pm.response.json().preco).to.eql(199.9));",
+              "pm.test(\"ID preservado\", () => pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"produtoId\"))));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Confirmar atualização",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products/{{produtoId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Atualização lida da API\", () => { pm.expect(pm.response.json().nome).to.eql(\"Controle Gamer Atualizado\"); pm.expect(pm.response.json().preco).to.eql(199.9); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Rejeitar cadastro inválido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/products",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Controle Gamer de Teste\",\n  \"descricao\": \"Produto descartável criado pela coleção de validação.\",\n  \"categoria\": \"Jogos\",\n  \"preco\": 0,\n  \"imagem\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+              "pm.test(\"Mensagem de validação\", () => pm.expect(pm.response.json().erro).to.be.a(\"string\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - Rejeitar atualização inválida",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/products/{{produtoId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"\",\n  \"descricao\": \"Produto descartável criado pela coleção de validação.\",\n  \"categoria\": \"Jogos\",\n  \"preco\": 199.9,\n  \"imagem\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+              "pm.test(\"Mensagem de validação\", () => pm.expect(pm.response.json().erro).to.be.a(\"string\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 - Excluir produto",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/products/{{produtoId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 204\", () => pm.response.to.have.status(204));",
+              "pm.test(\"DELETE sem corpo\", () => pm.expect(pm.response.text()).to.eql(\"\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 - Consultar produto excluído",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products/{{produtoId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+              "pm.test(\"Produto não encontrado\", () => pm.expect(pm.response.json().erro).to.eql(\"Produto não encontrado\"));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11 - Atualizar produto inexistente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/products/{{produtoId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Controle Gamer Atualizado\",\n  \"descricao\": \"Produto descartável criado pela coleção de validação.\",\n  \"categoria\": \"Jogos\",\n  \"preco\": 199.9,\n  \"imagem\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12 - Excluir produto inexistente",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/products/{{produtoId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "13 - Conferir limpeza",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/products"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Contagem original restaurada\", () => pm.expect(pm.response.json().length).to.eql(Number(pm.collectionVariables.get(\"totalInicial\"))));",
+              "pm.test(\"ID excluído ausente\", () => pm.expect(pm.response.json().some(p => p.id === Number(pm.collectionVariables.get(\"produtoId\")))).to.be.false);"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "executadoEm": "2026-09-12T13:42:36.886Z",
+  "node": "v24.21.0",
+  "ambiente": "API original executada em pasta temporária com dados isolados",
+  "persistenciaAposReinicio": true,
+  "requests": {
+    "total": 13,
+    "pending": 0,
+    "failed": 0
+  },
+  "assertions": {
+    "total": 27,
+    "pending": 0,
+    "failed": 0
+  },
+  "falhas": [],
+  "execucoes": [
+    {
+      "nome": "01 - Listar produtos",
+      "metodo": "GET",
+      "status": 200,
+      "testes": [
+        {
+          "nome": "Status 200",
+          "passou": true
+        },
+        {
+          "nome": "Resposta é uma lista",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "02 - Cadastrar produto",
+      "metodo": "POST",
+      "status": 201,
+      "testes": [
+        {
+          "nome": "Status 201",
+          "passou": true
+        },
+        {
+          "nome": "ID gerado",
+          "passou": true
+        },
+        {
+          "nome": "Nome e preço persistidos",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "03 - Buscar por ID",
+      "metodo": "GET",
+      "status": 200,
+      "testes": [
+        {
+          "nome": "Status 200",
+          "passou": true
+        },
+        {
+          "nome": "Objeto do ID criado",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "04 - Conferir inclusão na lista",
+      "metodo": "GET",
+      "status": 200,
+      "testes": [
+        {
+          "nome": "Status 200",
+          "passou": true
+        },
+        {
+          "nome": "Lista contém novo ID",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "05 - Atualizar produto",
+      "metodo": "PUT",
+      "status": 200,
+      "testes": [
+        {
+          "nome": "Status 200",
+          "passou": true
+        },
+        {
+          "nome": "Preço atualizado",
+          "passou": true
+        },
+        {
+          "nome": "ID preservado",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "06 - Confirmar atualização",
+      "metodo": "GET",
+      "status": 200,
+      "testes": [
+        {
+          "nome": "Status 200",
+          "passou": true
+        },
+        {
+          "nome": "Atualização lida da API",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "07 - Rejeitar cadastro inválido",
+      "metodo": "POST",
+      "status": 400,
+      "testes": [
+        {
+          "nome": "Status 400",
+          "passou": true
+        },
+        {
+          "nome": "Mensagem de validação",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "08 - Rejeitar atualização inválida",
+      "metodo": "PUT",
+      "status": 400,
+      "testes": [
+        {
+          "nome": "Status 400",
+          "passou": true
+        },
+        {
+          "nome": "Mensagem de validação",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "09 - Excluir produto",
+      "metodo": "DELETE",
+      "status": 204,
+      "testes": [
+        {
+          "nome": "Status 204",
+          "passou": true
+        },
+        {
+          "nome": "DELETE sem corpo",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "10 - Consultar produto excluído",
+      "metodo": "GET",
+      "status": 404,
+      "testes": [
+        {
+          "nome": "Status 404",
+          "passou": true
+        },
+        {
+          "nome": "Produto não encontrado",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "11 - Atualizar produto inexistente",
+      "metodo": "PUT",
+      "status": 404,
+      "testes": [
+        {
+          "nome": "Status 404",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "12 - Excluir produto inexistente",
+      "metodo": "DELETE",
+      "status": 404,
+      "testes": [
+        {
+          "nome": "Status 404",
+          "passou": true
+        }
+      ]
+    },
+    {
+      "nome": "13 - Conferir limpeza",
+      "metodo": "GET",
+      "status": 200,
+      "testes": [
+        {
+          "nome": "Status 200",
+          "passou": true
+        },
+        {
+          "nome": "Contagem original restaurada",
+          "passou": true
+        },
+        {
+          "nome": "ID excluído ausente",
+          "passou": true
+        }
+      ]
+    }
+  ]
+}

@@ -12,7 +12,7 @@
   <app-mensagem *ngIf="mensagemErro" [mensagem]="mensagemErro" tipo="erro"></app-mensagem>
   <app-mensagem *ngIf="mensagemSucesso" [mensagem]="mensagemSucesso" tipo="sucesso"></app-mensagem>
 
-  <div class="card shadow-sm border-0 mb-4" *ngIf="!carregando">
+  <div class="card shadow-sm border-0 mb-4" *ngIf="!carregando && !bloqueado">
     <div class="card-body">
       <form [formGroup]="produtoForm" (ngSubmit)="salvar()">
         <div class="row g-3">
@@ -39,7 +39,7 @@
           </div>
           <div class="col-md-6">
             <label for="preco" class="form-label">Preço (R$)</label>
-            <input type="number" id="preco" class="form-control" formControlName="preco" step="0.01">
+            <input type="number" id="preco" class="form-control" formControlName="preco" step="0.01" min="0.01">
             <div *ngIf="produtoForm.get('preco')?.invalid && produtoForm.get('preco')?.touched" class="text-danger small mt-1">
               O preço é obrigatório e deve ser maior que zero.
             </div>
@@ -47,10 +47,11 @@
           <div class="col-md-6">
             <label for="imagem" class="form-label">URL da Imagem</label>
             <input type="url" id="imagem" class="form-control" formControlName="imagem" placeholder="https://...">
+            <div *ngIf="produtoForm.controls.imagem.invalid && produtoForm.controls.imagem.touched" class="text-danger small mt-1">Informe uma URL começando com http:// ou https://, ou deixe em branco.</div>
           </div>
         </div>
         <div class="mt-4 d-flex gap-2">
-          <button type="submit" id="btnCadastrar" class="btn btn-primary" [disabled]="produtoForm.invalid || carregando">
+          <button type="submit" id="btnCadastrar" class="btn btn-primary" [disabled]="produtoForm.invalid || carregando || concluido || bloqueado">
             {{ editandoId ? 'Salvar Alterações' : 'Cadastrar Produto' }}
           </button>
           <a routerLink="/produtos" class="btn btn-outline-secondary">
@@ -61,3 +62,5 @@
     </div>
   </div>
 </div>
+
+<div class="container" *ngIf="bloqueado && !carregando"><a routerLink="/produtos" class="btn btn-outline-secondary">Voltar à lista</a></div>
